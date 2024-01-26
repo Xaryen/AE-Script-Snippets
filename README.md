@@ -1,4 +1,4 @@
-### A collection of small AE scripts for animation production.
+# A collection of small AE scripts for animation production.
 
 ## importFolder:
 imports a folder and all it's contents into an AE project, recreates the folder structure in the project panel
