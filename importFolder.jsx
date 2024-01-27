@@ -1,3 +1,4 @@
+(function(){
 // Define the character used for filtering files
 var filterCharacter = '_';
 
@@ -83,4 +84,6 @@ if (folderPath !== null) {
 
   // Run the import function
   importContents(folderPath.fsName, rootFolder);
+
 }
+})();
