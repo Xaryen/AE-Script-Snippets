@@ -46,12 +46,11 @@
         var folder = new Folder(folderPath);
         if (!folder.exists) return;
 
-        var files = folder.getFiles();
-        var lastImportedSequence = "";
+        var files = folder.getFiles().sort(); // Sort the files for consistent processing
+        var lastSequenceName = ""; // Track the name of the last imported sequence
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-
             if (file instanceof Folder) {
                 handleFolder(file, parentFolderItem);
                 continue;
@@ -60,17 +59,21 @@
             if (shouldExclude(file.name)) continue;
 
             var options = new ImportOptions(File(file));
-            if (!canBeImportedAsSequence(file.name)) {
-                options.sequence = false;
-            } else if (!isPartOfSequence(file.name, lastImportedSequence)) {
-                options.sequence = file.parent.displayName.indexOf(filterCharacter) !== 0;
-                lastImportedSequence = options.sequence ? getBaseNameForSequence(file.name) : "";
-            } else {
-                continue; // Skip file as it's part of an already imported sequence
-            }
+            var baseName = getBaseNameForSequence(file.name);
+            var isStartOfNewSequence = (baseName !== lastSequenceName) && canBeImportedAsSequence(file.name);
+            var fileStartsWithUnderscore = file.name.indexOf('_') === 0;
+            
+            // Adjust the condition to account for files starting with '_'
+            options.sequence = isStartOfNewSequence && !fileStartsWithUnderscore && file.parent.displayName.indexOf(filterCharacter) !== 0;
 
-            var importedItem = app.project.importFile(options);
-            importedItem.parentFolder = parentFolderItem;
+            if (isStartOfNewSequence || !canBeImportedAsSequence(file.name) || fileStartsWithUnderscore) {
+                var importedItem = app.project.importFile(options);
+                importedItem.parentFolder = parentFolderItem;
+
+                if (options.sequence) {
+                    lastSequenceName = baseName; // Update the last sequence name
+                }
+            }
         }
     }
 
@@ -92,16 +95,6 @@
             newFolder.parentFolder = parentFolderItem;
             importFolderContents(folder.fsName, newFolder);
         }
-    }
-
-    function handleFile(file, parentFolderItem) {
-        if (shouldExclude(file.name)) return;
-
-        var options = new ImportOptions(File(file));
-        options.sequence = file.parent.displayName.indexOf(filterCharacter) !== 0;
-        //options.forceAlphabetical = file.parent.displayName.indexOf(filterCharacter) === 0;
-        var importedItem = app.project.importFile(options);
-        importedItem.parentFolder = parentFolderItem;
     }
 
     function main() {
