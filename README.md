@@ -7,7 +7,7 @@ Imports a folder and all it's contents into an AE project, recreates the folder 
 For subfolders starting with "_" contents will be imported as individual images, for rest as img sequences.
 
 ### sortLayers:
-Sorts layers so that camera/layout is on top, bg on bottom and cels inbetween sorted in correct reverse alphabetical order.
+Sorts layers in the selected comp so that camera/layout is on top, bg on bottom and cels inbetween sorted in correct reverse alphabetical order.
 
 ## Functions:
 
