@@ -9,13 +9,13 @@
  * 1: for folder
  * var basePath = "E:/WORKTITLE/EPISODE 01/0-3_CEL_FOLDER/";
  * var testVar = "TITLE01_C001";
- * var regexPattern = "^" + RegExp.escape(testVar) + "_r*"; // 
+ * var regexPattern = "^" + RegExp.escape(testVar);
  * var type = "folder"; 
  * var path = validatePathWithRegex(basePath, regexPattern, type);
  * 2: for file
  * var basePath = "E:/WORKTITLE/EPISODE 01/0-1_BG/";
  * var testVar = "TITLE01_C001";
- * var regexPattern = "^" + RegExp.escape(testVar); //
+ * var regexPattern = "^" + RegExp.escape(testVar);
  * var type = "file"; 
  * var path = validatePathWithRegex(basePath, regexPattern, type);
  * check the result:
