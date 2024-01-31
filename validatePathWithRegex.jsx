@@ -1,7 +1,7 @@
 /**
  * checks if a path to a folder/file is valid, find the most recent retake version if present (based on _r appended to the name, e.g. TITLE01_001_paint_rr for a second retake)
  * @param {string} basePath - the base path where the item e.g. a cut folder or a bg file will be located
- * @param {string} regexPattern - the naming scheme used for the give work, the suffix like _paint or _BG or a file extension isn't needed
+ * @param {string} regexPattern - the naming scheme used for the given work, the suffix like _paint or _BG or a file extension isn't needed
  * @param {string} inputType - either "file" or "folder"
  * @returns {string|null} if the path is valid it returns the full path to the file or folder, otherwise returns null
  *
