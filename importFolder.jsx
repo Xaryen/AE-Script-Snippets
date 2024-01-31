@@ -59,7 +59,7 @@
             if (shouldExclude(file.name)) continue;
 
             var options = new ImportOptions(File(file));
-            var baseName = getBaseNameForSequence(file.name);
+            var baseName = getBaseNameForSequence(file.name, file.parent.name);
             var isStartOfNewSequence = (baseName !== lastSequenceName) && canBeImportedAsSequence(file.name);
             var fileStartsWithUnderscore = file.name.indexOf('_') === 0;
             
@@ -82,11 +82,14 @@
         return baseName === lastImportedSequence;
     }
 
-    function getBaseNameForSequence(fileName) {
-        // Logic to extract the base name from the file name (e.g., "A0001.tga" -> "A")
-        // Adjust the logic based on your file naming convention
+    function getBaseNameForSequence(fileName, parentFolderName) {
+        // Extract the base name from the file name for files with leading alphabetic characters
         var match = fileName.match(/^[A-Za-z]+/);
-        return match ? match[0] : "";
+        if (match) {
+            return match[0];
+        }
+        // For files that are just numbered (like "1.png"), use the parent folder's name as the base name
+        return parentFolderName;
     }
 
     function handleFolder(folder, parentFolderItem) {
