@@ -4,6 +4,22 @@
  * @param {string} regexPattern - the naming scheme used for the give work, the suffix like _paint or _BG or a file extension isn't needed
  * @param {string} inputType - either "file" or "folder"
  * @returns {string|null} if the path is valid it returns the full path to the file or folder, otherwise returns null
+ *
+ * Example usage
+ * 1: for folder
+ * var basePath = "E:/WORKTITLE/EPISODE 01/0-3_CEL_FOLDER/";
+ * var testVar = "TITLE01_C001";
+ * var regexPattern = "^" + RegExp.escape(testVar) + "_r*"; // 
+ * var type = "folder"; 
+ * var path = validatePathWithRegex(basePath, regexPattern, type);
+ * 2: for file
+ * var basePath = "E:/WORKTITLE/EPISODE 01/0-1_BG/";
+ * var testVar = "TITLE01_C001";
+ * var regexPattern = "^" + RegExp.escape(testVar); //
+ * var type = "file"; 
+ * var path = validatePathWithRegex(basePath, regexPattern, type);
+ * check the result:
+ * $.writeln("Selected item: " + path);
  */
 (function(){
 
@@ -46,21 +62,7 @@ RegExp.escape = function(s) {
     return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
-// // Example usage
 
-// var basePath = "E:/WORKTITLE/EPISODE 01/0-3_CEL_FOLDER/";
-// var testVar = "TITLE01_C001";
-// var regexPattern = "^" + RegExp.escape(testVar) + "_r*"; // 
-// var type = "folder"; // Can be "folder", "file", or undefined
-// var path = validatePathWithRegex(basePath, regexPattern, type);
-
-
-var basePath = "E:/WORKTITLE/EPISODE 01/0-1_BG/";
-var testVar = "TITLE01_C001";
-var regexPattern = "^" + RegExp.escape(testVar); //
-var type = "file"; // Can be "folder", "file", or undefined
-var path = validatePathWithRegex(basePath, regexPattern, type);
-$.writeln("Selected item: " + path);
 
 }());
 
