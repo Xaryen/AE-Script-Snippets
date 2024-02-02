@@ -4,10 +4,6 @@
 		if (this=="" ) return ""
 		else return this.replace(/[\r\n]+$|^\s+|\s+$/g, "");
 	}
-    String.prototype.getParent = function(){
-		var r=this;var i=this.lastIndexOf("/");if(i>=0) r=this.substring(0,i);
-		return r;
-	}
     String.prototype.getName = function(){
 		var r=this;var i=this.lastIndexOf("/");if(i>=0) r=this.substring(i+1);
 		return r;
@@ -29,12 +25,12 @@
         if (startIndex !== -1) {
             extractedContent = originalName.substring(startIndex);
             trimmedName = originalName.substring(0, startIndex).trim();
-            $.writeln(trimmedName);
+            //$.writeln(trimmedName);
             if (trimmedName.endsWith("_")){
 
                 trimmedName = trimmedName.slice(0, -1);
             }
-            $.writeln(trimmedName);
+            //$.writeln(trimmedName);
             selectedLayer.name = trimmedName;
             return trimmedName;
         }else{
@@ -49,7 +45,7 @@
         var parentComp = layer.containingComp;
         var selectedLayerIndex = [layer.index];
         var precompName = celRename(layer);
-        $.writeln(precompName);
+        //$.writeln(precompName);
         if (layer && parentComp && selectedLayerIndex){
             parentComp.layers.precompose(selectedLayerIndex, precompName, 1)
         }
@@ -65,7 +61,7 @@
             newName = layer.source.file.path;
             newName = newName.getName();
         }
-        $.writeln(newName)
+        //$.writeln(newName)
         selectedLayer.source.name = selectedLayer.name = newName + originalName;
     }
 
