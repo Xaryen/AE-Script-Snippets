@@ -8,7 +8,7 @@
 		var r=this;var i=this.lastIndexOf("/");if(i>=0) r=this.substring(i+1);
 		return r;
 	}
-	String.prototype.endsWith = function(suffix) {
+    String.prototype.endsWith = function(suffix){
 		if (suffix.length > this.length) return false; // Ensure the suffix isn't longer than the string
 		return this.indexOf(suffix, this.length - suffix.length) !== -1;
 	};
@@ -57,9 +57,9 @@
         var layer = selectedLayer;
         var originalName = layer.name;
         var newName = "";
-        if (layer.source && layer.source instanceof FootageItem && layer.source.file) {
+        if (layer.source && layer.source instanceof FootageItem && layer.source.file && originalName) {
             newName = layer.source.file.path;
-            newName = newName.getName();
+            newName = newName.getName().trim();
         }
         //$.writeln(newName)
         selectedLayer.source.name = selectedLayer.name = newName + originalName;
