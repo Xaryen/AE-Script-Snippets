@@ -57,7 +57,7 @@
         var layer = selectedLayer;
         var originalName = layer.name;
         var newName = "";
-        if (layer.source && layer.source instanceof FootageItem && layer.source.file && originalName) {
+        if (layer.source && layer.source instanceof FootageItem && layer.source.file) {
             newName = layer.source.file.path;
             newName = newName.getName().trim();
         }
