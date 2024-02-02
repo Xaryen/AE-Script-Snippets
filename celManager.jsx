@@ -1,4 +1,3 @@
-
 (function buildUI(thisObj) {
 
     String.prototype.trim = function(){
@@ -74,7 +73,7 @@
 
     function button2func(){
         var myLayers = app.project.activeItem.selectedLayers;
-        var myLayers.sort();
+        var myLayer;
         app.beginUndoGroup("cel precomp");
         for (var i = 0; i < myLayers.length; i++){
             myLayer = myLayers[i];
@@ -86,11 +85,20 @@
     function button3func(){
         var myLayers = app.project.activeItem.selectedLayers;
         var myLayer;
+        var parentComp = myLayers[0].containingComp;
+        var precompName = "";
+        var myLayersNames = [];
+        var myLayersIndexes = [];
         app.beginUndoGroup("cel combine");
         for (var i = 0; i < myLayers.length; i++){
             myLayer = myLayers[i];
-            celPrecomp(myLayer);
+            myLayersNames[i] = celRename(myLayer);
+            myLayersIndexes[i] = myLayer.index;
         }
+        myLayersNames.sort();
+        precompName = myLayersNames.join("");
+        parentComp.layers.precompose(myLayersIndexes, precompName, 1)
+
         app.endUndoGroup();
     }
 
