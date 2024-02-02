@@ -18,12 +18,10 @@
         if (!selectedLayer){$.writeln("nothing selected");return;} 
 
         var originalName = selectedLayer.name;
-        var removedStuff = "";
         var trimmedName = originalName;
         var startIndex = originalName.indexOf('[');
 
         if (startIndex !== -1) {
-            extractedContent = originalName.substring(startIndex);
             trimmedName = originalName.substring(0, startIndex).trim();
             //$.writeln(trimmedName);
             if (trimmedName.endsWith("_")){
