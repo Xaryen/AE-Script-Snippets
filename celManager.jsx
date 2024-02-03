@@ -36,7 +36,7 @@
         }
     }
 
-    function celPrecomp(selectedLayer){
+    function celPrecomp(selectedLayer, pO){
         if (!selectedLayer){$.writeln("nothing selected");return;} 
 
         var layer = selectedLayer;
@@ -45,7 +45,7 @@
         var precompName = celRename(layer);
         //$.writeln(precompName);
         if (layer && parentComp && selectedLayerIndex){
-            parentComp.layers.precompose(selectedLayerIndex, precompName, 1)
+            parentComp.layers.precompose(selectedLayerIndex, precompName, pO);
         }
        
     }
@@ -77,10 +77,22 @@
     function button2func(){
         var myLayers = app.project.activeItem.selectedLayers;
         var myLayer;
+        var x = 1;
         app.beginUndoGroup("cel precomp");
         for (var i = 0; i < myLayers.length; i++){
             myLayer = myLayers[i];
-            celPrecomp(myLayer);
+            celPrecomp(myLayer, x);
+        }
+        app.endUndoGroup();
+    }
+    function button2bfunc(){
+        var myLayers = app.project.activeItem.selectedLayers;
+        var myLayer;
+        var x = 0;
+        app.beginUndoGroup("cel precomp");
+        for (var i = 0; i < myLayers.length; i++){
+            myLayer = myLayers[i];
+            celPrecomp(myLayer, x);
         }
         app.endUndoGroup();
     }
@@ -121,11 +133,13 @@
     if (myPanel != null) {
         var button1 = myPanel.add("button", undefined, "rename");
         var button2 = myPanel.add("button", undefined, "precomp");
+        var button2b = myPanel.add("button", undefined, "precompL");
         var button3 = myPanel.add("button", undefined, "combine");
         var button4 = myPanel.add("button", undefined, "get name");
 
         button1.onClick = function(){button1func();};
         button2.onClick = function(){button2func();};
+        button2b.onClick = function(){button2bfunc();};
         button3.onClick = function(){button3func();};
         button4.onClick = function(){button4func();};
 
