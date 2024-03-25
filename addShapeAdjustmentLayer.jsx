@@ -1,5 +1,5 @@
 ﻿
-{
+(function() {
 	app.beginUndoGroup("new shape adjustment layer");
 
 	var ac = app.project.activeItem;
@@ -43,4 +43,4 @@
 	}
 
 	app.endUndoGroup();
-}
+})()
