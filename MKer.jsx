@@ -1,6 +1,7 @@
 (function buildUI(thisObj) {
 
-    var MKpath = "D:\\OtakuVs\\OTACHAN-S2\\_SOZAI\\99_MK"
+    var MKpath = "D:\\mypath\\MK" //path to image folder here
+    var pFolderName = "0-0_etc" // name of the project panel folder where the imported stuff should be placed
 
     String.prototype.trim = function(){
 		if (this=="" ) return ""
@@ -20,8 +21,12 @@
         var myLayer;
         app.beginUndoGroup("refresh");
         for (var i = 0; i < myLayers.length; i++){
+            try {
             myLayer = myLayers[i];
             celRename(myLayer);
+            } catch(e) {
+                alert(e)
+            }
         }
         app.endUndoGroup();
     }
@@ -46,8 +51,8 @@
         app.beginUndoGroup("add MK board");
         var importOptions = new ImportOptions(File(path));
         var MKitem = app.project.importFile(importOptions)
-        var etcFolder = findFolder("0-0_etc")
-        if (!etcFolder) {alert("etc folder not found")}
+        var etcFolder = findFolder(pFolderName)
+        if (!etcFolder) {alert("destination folder not found")}
         MKitem.parentFolder = etcFolder;
 
         //get current playhead position
